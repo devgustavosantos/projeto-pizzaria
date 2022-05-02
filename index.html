@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pizzaria</title>
+</head>
+<body>
+    <h1>Pizzas</h1>
+    <main>
+        <section>
+            <div id="area-das-pizzas">
+                <!-- Elemento adicionado antes do JS apenas para visualização -->
+                <div id="quad-pizza-exemplo" class="container-pizza">
+                    <div class="topo-container">
+                        <div class="container-foto-pizza">
+                            <img src="images/pizza.png" alt="foto de uma pizza" class="foto-pizza">
+                        </div>
+                        <div class="icone-adicionar"></div>
+                    </div>
+                    
+                    <div class="base-container">
+                        <p>R$ 20.19</p>
+                        <h2>Mussarela</h2>
+                        <h3>Descrição da pizza em mais de uma linha muito legal bem interessante</h3>
+                    </div>
+                </div>
+        </section>
+        <section id="area-modal">
+            <div id="modal-exemplo" class="ocultar-modal">
+                <!-- Modal para ser vizializado antes de aplicar JS -->
+                <div id="janela-modal">
+                    <img src="images/pizza.png" alt="">
+                    <span>
+                        <h2>Mussarela</h2>
+                        <h3>Descrição da pizza em mais de uma linha muito legal bem interessante</h3>
+                        <div id="tamanhos-container">
+                            <p>Tamanho</p>
+                            <div id="tamanhos">
+                                <span><strong>PEQUENA </strong><p>100g</p></span>
+                                <span><strong>MÉDIA </strong><p>530g</p></span>
+                                <span><strong>GRANDE </strong><p>860g</p></span>
+                            </div>
+                        </div>
+                        <div id="itens-preco-container">
+                            <p>Preço</p>
+                            <span id="itens-preco">
+                                <span id="preco-modal">R$ 30.50</span>
+                                <div id="quantidade-modal-container">
+                                    <div id="quantidade-modal">
+                                        <span>-</span>
+                                        <span>1</span>
+                                        <span>+</span>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <div id="botoes">
+                            <button id="botao-adicionar-carinho">Adicionar ao carinho</button>
+                            <button id="botao-cancelar">Cancelar</button>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+        </section>
+        </div>
+    </main>
+    <script src="pizzas.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
