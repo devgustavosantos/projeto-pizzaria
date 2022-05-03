@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Pizzaria</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
                 <div id="quad-pizza-exemplo" class="container-pizza">
                     <div class="topo-container">
                         <div class="container-foto-pizza">
-                            <img src="images/pizza.png" alt="foto de uma pizza" class="foto-pizza">
+                            <img src="assets/image/pizza.png" alt="foto de uma pizza" class="foto-pizza">
                         </div>
                         <div class="icone-adicionar"></div>
                     </div>
@@ -32,16 +32,16 @@
             <div id="modal-exemplo" class="ocultar-modal">
                 <!-- Modal para ser vizializado antes de aplicar JS -->
                 <div id="janela-modal">
-                    <img src="images/pizza.png" alt="">
+                    <img src="images/pizza.png" alt="foto de uma pizza" id="foto-modal">
                     <span>
-                        <h2>Mussarela</h2>
+                        <h2 id="sabor-modal">Mussarela</h2>
                         <h3>Descrição da pizza em mais de uma linha muito legal bem interessante</h3>
                         <div id="tamanhos-container">
                             <p>Tamanho</p>
                             <div id="tamanhos">
-                                <span><strong>PEQUENA </strong><p>100g</p></span>
-                                <span><strong>MÉDIA </strong><p>530g</p></span>
-                                <span><strong>GRANDE </strong><p>860g</p></span>
+                                <span class="quad-tamanhos"><p><strong>PEQUENA</strong> 100g</p></span>
+                                <span class="quad-tamanhos"><p><strong>MÉDIA</strong> 530g</p></span>
+                                <span id="tamanho-escolhido" class="quad-tamanhos"><p><strong>GRANDE</strong> 860g</p></span>
                             </div>
                         </div>
                         <div id="itens-preco-container">
@@ -68,7 +68,7 @@
         </section>
         </div>
     </main>
-    <script src="pizzas.js"></script>
-    <script src="script.js"></script>
+    <script src="assets/js/pizzas.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

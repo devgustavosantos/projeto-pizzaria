@@ -112,7 +112,7 @@ p {
 
 .icone-adicionar{
     display: block;
-    background-image: url("icons/plus-free-icon-font.svg");
+    background-image: url("../image/icons/plus-free-icon-font.svg");
     background-size: 33%;
     background-position: center;
     background-repeat: no-repeat;
@@ -208,29 +208,52 @@ p {
     font-weight: 500;
 }
 
-#tamanhos {
-    background-color: #EEEEEE;
-    padding: 10px;
-    border-radius: 10px;
+#tamanhos-container > p, #itens-preco-container {
     font-size: 14px;
+    font-weight: 500;
+}
+
+#tamanhos {
+    border-radius: 10px;
+  
+    background-color: #EEEEEE;
+    overflow: hidden;
     display: flex;
     justify-content: space-around;
     cursor: pointer;
     margin-top: 10px;
 }
 
-#tamanhos-container > p, #itens-preco-container {
-    font-size: 14px;
-    font-weight: 500;
-
+.quad-tamanhos {
+    background-color: transparent;
+    padding: 10px;
+    flex-grow: 1;
 }
 
-#tamanhos span > p{
+
+#tamanhos span:hover {
+    background-color: #CCCCCC;
+}
+
+
+#tamanhos > .quad-tamanhos > p > strong{
     display: inline-block;
-    text-transform: lowercase;
-    font-size: 12px;
+    color: black;
+    font-size: 13px;
+
 }
 
+/* #tamanhos > .quad-tamanhos > p {
+    font-size: 13px;
+    text-transform: lowercase;
+
+} */
+
+#tamanho-escolhido, #tamanho-escolhido > p {
+    color: white;
+    background-color: #399ADE;
+
+}
 
 #itens-preco {
     display: flex;
@@ -240,7 +263,7 @@ p {
 }
 
 #preco-modal {
-    font-size: 28px;
+    font-size: 27px;
     font-weight: 400;
 }
 #quantidade-modal-container{
@@ -275,7 +298,7 @@ p {
     
 }
 
-#botao-adicionar-carinho{
+#botao-adicionar-carinho:hover{
     background-color: #32A345;
     cursor: pointer;
 }

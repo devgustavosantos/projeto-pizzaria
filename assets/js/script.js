@@ -79,7 +79,6 @@ function listarPizzas() {
 
 function mostrarDetalhes(evento) {
 
-    //Função apenas para receber o evento de clique
     const itemQueAtivouOEvento = evento.target;
     const idDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("produto");
     
@@ -88,6 +87,17 @@ function mostrarDetalhes(evento) {
     let modal = document.getElementById("modal-exemplo");
     modal.classList.remove("ocultar-modal");
     modal.classList.add("mostrar-modal");
+
+    //Alterando o conteudo para o sabor escolhido
+    let fotoModal = document.getElementById("foto-modal");
+    let saborModal = document.getElementById("sabor-modal");
+    let precoModal = document.getElementById("preco-modal");
+
+    fotoModal.setAttribute("src", `${pizzaJson[idDoItemQueAtivou].img}`);
+    fotoModal.setAttribute("alt", `Foto de uma Pizza Sabor ${pizzaJson[idDoItemQueAtivou].name}`);
+    saborModal.innerText = `${pizzaJson[idDoItemQueAtivou].name}`;
+    Number.isInteger(pizzaJson[idDoItemQueAtivou].price) ? precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}.00` : precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}`;
+    
 
     //Ocultando o modal após a escolha
     const botaoAdicionarCarinho = document.getElementById("botao-adicionar-carinho");
