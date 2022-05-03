@@ -195,15 +195,13 @@ p {
 
 #janela-modal h3 {
     text-align: left;
-    font-size: 0.9em;
-    
-    color: rgb(105, 105, 105);
+    font-size: 15px;
+    color: rgb(155 155 155);
     font-family: 'Lato', Helvetica, sans-serif;
 }
 
 #janela-modal span p {
     text-align: left;
-    text-transform: uppercase;
     color: rgb(175, 175, 175);
     font-weight: 500;
 }
@@ -243,16 +241,22 @@ p {
 
 }
 
-/* #tamanhos > .quad-tamanhos > p {
-    font-size: 13px;
-    text-transform: lowercase;
 
-} */
+#tamanhos > .quad-tamanhos > p {
+    font-size: 12px;
+    font-weight: 400;
+} 
 
-#tamanho-escolhido, #tamanho-escolhido > p {
-    color: white;
+#tamanho-escolhido {
     background-color: #399ADE;
+}
 
+#tamanhos > #tamanho-escolhido:hover {
+    background-color: #399ADE;
+}
+
+#tamanhos-container > #tamanhos > #tamanho-escolhido > p, #tamanhos-container > #tamanhos > #tamanho-escolhido > p > strong {
+    color: white;
 }
 
 #itens-preco {
