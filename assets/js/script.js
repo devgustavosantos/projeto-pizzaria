@@ -1,4 +1,5 @@
-listarPizzas()
+listarPizzas();
+
 
 function listarPizzas() {
     let areaDasPizzas = document.getElementById("area-das-pizzas");
@@ -77,48 +78,17 @@ function listarPizzas() {
 }
 
 
-function mostrarDetalhes(evento) {
-
-    const itemQueAtivouOEvento = evento.target;
-    const idDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("produto");
-    
-    console.log(idDoItemQueAtivou);
-
-    let modal = document.getElementById("modal-exemplo");
-    modal.classList.remove("ocultar-modal");
-    modal.classList.add("mostrar-modal");
-
-    //Alterando o conteudo para o sabor escolhido
-    let fotoModal = document.getElementById("foto-modal");
-    let saborModal = document.getElementById("sabor-modal");
-    let precoModal = document.getElementById("preco-modal");
-
-    fotoModal.setAttribute("src", `${pizzaJson[idDoItemQueAtivou].img}`);
-    fotoModal.setAttribute("alt", `Foto de uma Pizza Sabor ${pizzaJson[idDoItemQueAtivou].name}`);
-    saborModal.innerText = `${pizzaJson[idDoItemQueAtivou].name}`;
-    Number.isInteger(pizzaJson[idDoItemQueAtivou].price) ? precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}.00` : precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}`;
-    
-
-    //Ocultando o modal após a escolha
-    const botaoAdicionarCarinho = document.getElementById("botao-adicionar-carinho");
-    const botaoCancelar = document.getElementById("botao-cancelar");
-
-    botaoAdicionarCarinho.addEventListener("click", ocultarDetalhes);
-    botaoCancelar.addEventListener("click", ocultarDetalhes);
-    
-
-}
 
 function ocultarDetalhes(evento) {
     let modal = document.getElementById("modal-exemplo");
     modal.classList.remove("mostrar-modal");
     modal.classList.add("ocultar-modal");
-
+    
 }
 
 
 function iconeAdicionarNovo (evento) {
-
+    
     //Recebendo a info de quem ativou
     const item = evento.target;
 
@@ -146,4 +116,76 @@ function iconeAdicionarVelho(evento) {
     
     //Removendo a classe dele
     idAdicionar.classList.remove("icone-adicionar-novo");
+}
+
+function mostrarDetalhes(evento) {
+
+    const itemQueAtivouOEvento = evento.target;
+    const idDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("produto");
+    
+    console.log(idDoItemQueAtivou);
+
+    let modal = document.getElementById("modal-exemplo");
+    modal.classList.remove("ocultar-modal");
+    modal.classList.add("mostrar-modal");
+
+    //Alterando o conteudo para o sabor escolhido
+    let fotoModal = document.getElementById("foto-modal");
+    let saborModal = document.getElementById("sabor-modal");
+    let precoModal = document.getElementById("preco-modal");
+
+    fotoModal.setAttribute("src", `${pizzaJson[idDoItemQueAtivou].img}`);
+    fotoModal.setAttribute("alt", `Foto de uma Pizza Sabor ${pizzaJson[idDoItemQueAtivou].name}`);
+    saborModal.innerText = `${pizzaJson[idDoItemQueAtivou].name}`;
+    Number.isInteger(pizzaJson[idDoItemQueAtivou].price) ? precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}.00` : precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}`;
+
+    //Selecionando o tamanho da pizza
+    escolherTamanho();
+
+    //Ocultando o modal após a escolha
+    const botaoAdicionarCarinho = document.getElementById("botao-adicionar-carinho");
+    const botaoCancelar = document.getElementById("botao-cancelar");
+
+    botaoAdicionarCarinho.addEventListener("click", ocultarDetalhes);
+    botaoCancelar.addEventListener("click", ocultarDetalhes);
+}
+
+function escolherTamanho() {
+    let elementoTamanhos = document.getElementById("tamanhos");
+    
+    //Adicionando a cor azul ao tamanho grande, por uma questão de markenting
+    let tamanhoEscolhido = elementoTamanhos.children[2]
+    tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
+
+    let filhosElementoTamanhos = elementoTamanhos.children
+
+    //Adicionando identificação e eventos aos tamanhos
+    for(let cont in filhosElementoTamanhos){
+        //Condição para não acessar itens indesejados do objeto
+        if(cont < filhosElementoTamanhos.length){
+            filhosElementoTamanhos[cont].setAttribute("tipo-tamanho", `${cont}`);
+            filhosElementoTamanhos[cont].addEventListener("click", mudarTamanho);
+        }
+    
+    }
+
+    function mudarTamanho(evento) {
+        let itemQueAtivouOEvento = evento.currentTarget
+
+        //Aqui vamos pegar o atributo
+        let atributoDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("tipo-tamanho");
+        
+        //Retirar a estilização do tamanho anterior
+        tamanhoEscolhido.removeAttribute("id", "tamanho-escolhido");
+
+        //Colocando o novo tamanho na variavel
+        tamanhoEscolhido = elementoTamanhos.children[atributoDoItemQueAtivou];
+
+        //Recolocando a estilização
+        tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
+
+    }
+    
+
+
 }
