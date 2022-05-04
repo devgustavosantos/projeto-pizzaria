@@ -251,7 +251,7 @@ p {
     background-color: #399ADE;
 }
 
-#tamanhos > #tamanho-escolhido:hover {
+#tamanhos > #tamanho-escolhido:hover, #tamanhos > #tamanho-escolhido span:hover {
     background-color: #399ADE;
 }
 
@@ -280,15 +280,25 @@ p {
 #quantidade-modal {
     display: flex;
     background-color: #EEEEEE;
-    padding: 5px;
+    
     font-weight: 600;
     font-size: 14px;
     width: 60%;
-    justify-content: space-around;
     border-radius: 10px;
     cursor: pointer;
+    overflow: hidden;
 }
 
+#quantidade-modal span:nth-child(n) {
+    text-align: center;
+    height: 100%;
+    flex-grow: 1;
+    padding: 5px;
+}
+
+#quantidade-modal span:nth-child(n)::selection {
+    background-color: transparent;
+  }
 
 
 #botao-adicionar-carinho{

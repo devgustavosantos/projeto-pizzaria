@@ -3,7 +3,7 @@ listarPizzas();
 
 function listarPizzas() {
     let areaDasPizzas = document.getElementById("area-das-pizzas");
-    areaDasPizzas.innerHTML = ""
+    areaDasPizzas.innerHTML = "";
     
     //Laço que percorre o array
     for(let cont in pizzaJson) {
@@ -56,7 +56,7 @@ function listarPizzas() {
         elementoPizza.fotoPizza.setAttribute("src",`${pizzaJson[cont].img}`);
         Number.isInteger(pizzaJson[cont].price)?elementoPizza.txtPreco.innerText = `R$ ${pizzaJson[cont].price}.00`:elementoPizza.txtPreco.innerText = `R$ ${pizzaJson[cont].price}`;        
         elementoPizza.txtSabor.innerText = `${pizzaJson[cont].name}`;
-        elementoPizza.txtDescricao.innerText = `${pizzaJson[cont].description}`
+        elementoPizza.txtDescricao.innerText = `${pizzaJson[cont].description}`;
 
         //Orgarnizando a hierarquia dos itens
         elementoPizza.containerPizza.appendChild(elementoPizza.topoContainer);
@@ -73,22 +73,16 @@ function listarPizzas() {
 
         //Colocando o elemento pronto na tela
         areaDasPizzas.appendChild(elementoPizza.containerPizza);
-
     }
 }
-
-
 
 function ocultarDetalhes(evento) {
     let modal = document.getElementById("modal-exemplo");
     modal.classList.remove("mostrar-modal");
     modal.classList.add("ocultar-modal");
-    
 }
 
-
 function iconeAdicionarNovo (evento) {
-    
     //Recebendo a info de quem ativou
     const item = evento.target;
 
@@ -100,11 +94,9 @@ function iconeAdicionarNovo (evento) {
     
     //Mudando a classe dele
     idAdicionar.classList.add("icone-adicionar-novo");
-
 }
 
 function iconeAdicionarVelho(evento) {
-
     //Recebendo a info de quem ativou
     const item = evento.target;
 
@@ -119,7 +111,6 @@ function iconeAdicionarVelho(evento) {
 }
 
 function mostrarDetalhes(evento) {
-
     const itemQueAtivouOEvento = evento.target;
     const idDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("produto");
     
@@ -133,29 +124,43 @@ function mostrarDetalhes(evento) {
     let fotoModal = document.getElementById("foto-modal");
     let saborModal = document.getElementById("sabor-modal");
     let precoModal = document.getElementById("preco-modal");
+    let descricaoModal = document.getElementById("descricao-modal");
+    let tamanhosModal = {}
+   
 
     fotoModal.setAttribute("src", `${pizzaJson[idDoItemQueAtivou].img}`);
     fotoModal.setAttribute("alt", `Foto de uma Pizza Sabor ${pizzaJson[idDoItemQueAtivou].name}`);
     saborModal.innerText = `${pizzaJson[idDoItemQueAtivou].name}`;
-    Number.isInteger(pizzaJson[idDoItemQueAtivou].price) ? precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}.00` : precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}`;
+    descricaoModal.innerText = `${pizzaJson[idDoItemQueAtivou].description}`;
+        //Condição para adicionar ".00" se fir um número inteiro
+        Number.isInteger(pizzaJson[idDoItemQueAtivou].price) ? precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}.00` : precoModal.innerText = `R$ ${pizzaJson[idDoItemQueAtivou].price}`;
 
-    //Selecionando o tamanho da pizza
-    escolherTamanho();
-
+    
     //Ocultando o modal após a escolha
     const botaoAdicionarCarinho = document.getElementById("botao-adicionar-carinho");
     const botaoCancelar = document.getElementById("botao-cancelar");
-
+    
     botaoAdicionarCarinho.addEventListener("click", ocultarDetalhes);
     botaoCancelar.addEventListener("click", ocultarDetalhes);
+    
+    
+    escolherTamanho();
+    escolherQuantidade();
 }
 
 function escolherTamanho() {
     let elementoTamanhos = document.getElementById("tamanhos");
     
-    //Adicionando a cor azul ao tamanho grande, por uma questão de markenting
-    let tamanhoEscolhido = elementoTamanhos.children[2]
-    tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
+    //Condição para deixar o tamanho "grande" como padrão
+    let tamanhoEscolhido = document.getElementById("tamanho-escolhido");
+    if (tamanhoEscolhido == null) {
+        tamanhoEscolhido = elementoTamanhos.children[2];
+        tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
+    } else {
+        tamanhoEscolhido.removeAttribute("id", "tamanho-escolhido");
+        tamanhoEscolhido = elementoTamanhos.children[2];
+        tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
+    }
 
     let filhosElementoTamanhos = elementoTamanhos.children
 
@@ -166,11 +171,10 @@ function escolherTamanho() {
             filhosElementoTamanhos[cont].setAttribute("tipo-tamanho", `${cont}`);
             filhosElementoTamanhos[cont].addEventListener("click", mudarTamanho);
         }
-    
     }
 
     function mudarTamanho(evento) {
-        let itemQueAtivouOEvento = evento.currentTarget
+        let itemQueAtivouOEvento = evento.currentTarget;
 
         //Aqui vamos pegar o atributo
         let atributoDoItemQueAtivou = itemQueAtivouOEvento.getAttribute("tipo-tamanho");
@@ -183,9 +187,32 @@ function escolherTamanho() {
 
         //Recolocando a estilização
         tamanhoEscolhido.setAttribute("id", "tamanho-escolhido");
-
     }
+}
+
+function escolherQuantidade() {
+    let diminuirQuantidade = document.getElementById("quantidade-modal").children[0];
+    let quantidadeAtual = document.getElementById("quantidade-modal").children[1];
+    let aumentarQuantidade = document.getElementById("quantidade-modal").children[2];
+
+    //Por padrão, ao abrir o modal a quantidade será 1
+    let numQuantidadeAtual = 1;
+    quantidadeAtual.innerText = `${numQuantidadeAtual}`;
+
+    aumentarQuantidade.addEventListener("click", function() {
+        console.log("adicionou");
+        numQuantidadeAtual++;
+        console.log(numQuantidadeAtual);
+        quantidadeAtual.innerText = `${numQuantidadeAtual}`;
+    });
+
+    diminuirQuantidade.addEventListener("click", function() {
+        if(numQuantidadeAtual > 1) {
+            console.log("removeu");
+            numQuantidadeAtual--;
+            quantidadeAtual.innerText = `${numQuantidadeAtual}`;
+            console.log(numQuantidadeAtual);
+        }
+    });
     
-
-
 }
