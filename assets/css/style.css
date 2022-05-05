@@ -170,8 +170,20 @@ p {
     align-items: center;
 }
 
-.pizza-escolhida > img {
+.escolhida-foto-nome {
     height: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.escolhida-foto-nome > img {
+    height: 100%;
+}
+
+.escolhida-foto-nome > span {
+    margin-left: 15px;
 }
 
 .botoes-quantidade{
