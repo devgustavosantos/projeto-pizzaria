@@ -16,6 +16,14 @@ body {
    
 }
 
+main {
+    display: flex;
+}
+
+#catalogo {
+    width: 70%;
+}
+
 h2, h3, p {
     text-align: center;
 }
@@ -137,6 +145,107 @@ p {
     flex-direction: column;
     gap: 10px;
 }
+
+/* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho*/
+#itens-carrinho {
+    background-color: #9CCBE6;
+    width: 30%;
+    overflow: hidden;
+    padding: 45px 20px;
+}
+
+#itens-carrinho > h2 {
+    text-align: left;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.pizza-escolhida {
+    height: 40px;
+    /* border: 1px solid green; */
+    margin: 3px auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pizza-escolhida > img {
+    height: 100%;
+}
+
+.botoes-quantidade{
+    width: 100%;
+    max-width: 70px;
+    height: 100%;
+    max-height: 30px;
+    background-color: #EEEEEE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    font-family: 'Hepta Slab', Helvetica, Arial;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.botoes-quantidade *:nth-child(n){
+    flex-grow: 1;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: rgb(121, 185, 221);
+    margin: 15px auto;
+}
+
+.container-conteudo-carrinho{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tit-valores-carrinho{
+    font-weight: 700;
+    color: rgb(77, 114, 136);
+}
+
+.num-tit-valores {
+    color: rgb(77, 114, 136);
+}
+
+#itens-total-carrinho {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+#finalizar-compra {
+    height: 100%;
+    max-height: 60px;
+    width: 100%;
+    margin-top: 40px;
+    border: 2px solid rgb(95, 226, 117);
+    border-radius: 20px;
+    background-color: rgb(72, 208, 95);
+    color: white;
+    font-family: 'Hepta Slab', Helvetica, Arial;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#finalizar-compra:hover {
+    background-color: rgb(54, 151, 70);
+    transition: all 0.3s ease;
+}
+
 
 /* Modal da pizza escolhida *//* Modal da pizza escolhida *//* Modal da pizza escolhida */
 #modal-exemplo {
@@ -301,7 +410,7 @@ p {
   }
 
 
-#botao-adicionar-carinho{
+#botao-adicionar-carrinho{
     background-color: #48d05f;
     border: none;
     color: white;
@@ -312,7 +421,7 @@ p {
     
 }
 
-#botao-adicionar-carinho:hover{
+#botao-adicionar-carrinho:hover{
     background-color: #32A345;
     cursor: pointer;
 }

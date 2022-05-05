@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Pizzaria</title>
 </head>
+
 <body>
-    <h1>Pizzas</h1>
     <main>
-        <section>
+        <section id="catalogo">
+            <h1>Pizzas</h1>
             <div id="area-das-pizzas">
                 <!-- Elemento adicionado antes do JS apenas para visualização -->
                 <div id="quad-pizza-exemplo" class="container-pizza">
@@ -20,13 +22,57 @@
                         </div>
                         <div class="icone-adicionar"></div>
                     </div>
-                    
+
                     <div class="base-container">
                         <p>R$ 20.19</p>
                         <h2>Mussarela</h2>
                         <h3>Descrição da pizza em mais de uma linha muito legal bem interessante</h3>
                     </div>
                 </div>
+        </section>
+
+        <section id="itens-carrinho">
+            <h2>Suas Pizzas</h2>
+        
+            <div id="area-pizzas-escolhidas">
+                <div class="pizza-escolhida">
+                    <!-- item de exemplo -->
+                    <img src="assets/image/pizza.png" alt="">
+                    <span>Mussarela (G)</span>
+                    <span class="quantidade-carrinho botoes-quantidade">
+                        <span>-</span>
+                        <span>1</span>
+                        <span>+</span>
+                    </span>
+                </div>
+                <div class="pizza-escolhida">
+                    <!-- item de exemplo -->
+                    <img src="assets/image/pizza.png" alt="">
+                    <span>Mussarela (G)</span>
+                    <span class="quantidade-carrinho botoes-quantidade">
+                        <span>-</span>
+                        <span>1</span>
+                        <span>+</span>
+                    </span>
+                </div>
+            </div>
+            <hr>
+            <div id="itens-subtotal-carrinho" class="container-conteudo-carrinho">
+                <span class="tit-valores-carrinho">Subtotal</span>
+                <span class="num-tit-valores">R$ 500</span>
+            </div>
+            <hr>
+            <div id="itens-desconto-carrinho" class="container-conteudo-carrinho">
+                <span class="tit-valores-carrinho">Desconto (-10%)</span>
+                <span class="num-tit-valores">R$ 50</span>
+            </div>
+            <hr>
+            <div id="itens-total-carrinho" class="container-conteudo-carrinho">
+                <span>Total</span>
+                <span>R$ 450.00</span>
+            </div>
+            <button id="finalizar-compra">Finalizar a compra</button>
+        
         </section>
         <section id="area-modal">
             <div id="modal-exemplo" class="ocultar-modal">
@@ -35,13 +81,20 @@
                     <img src="assets/image/pizza.png" alt="foto de uma pizza" id="foto-modal">
                     <span>
                         <h2 id="sabor-modal">Mussarela</h2>
-                        <h3 id="descricao-modal">Descrição da pizza em mais de uma linha muito legal bem interessante</h3>
+                        <h3 id="descricao-modal">Descrição da pizza em mais de uma linha muito legal bem interessante
+                        </h3>
                         <div id="tamanhos-container">
                             <p>TAMANHO</p>
                             <div id="tamanhos">
-                                <span class="quad-tamanhos"><p><strong>PEQUENA</strong> <span id="tamanho-pequeno">100g</span></p></span>
-                                <span class="quad-tamanhos"><p><strong>MÉDIA</strong> <span id="tamanho-medio">530g</span></p></span>
-                                <span class="quad-tamanhos"><p><strong>GRANDE</strong> <span id="tamanho-grande">860g</span></p></span>
+                                <span class="quad-tamanhos">
+                                    <p><strong>PEQUENO</strong> <span id="tamanho-pequeno">100g</span></p>
+                                </span>
+                                <span class="quad-tamanhos">
+                                    <p><strong>MÉDIO</strong> <span id="tamanho-medio">530g</span></p>
+                                </span>
+                                <span class="quad-tamanhos">
+                                    <p><strong>GRANDE</strong> <span id="tamanho-grande">860g</span></p>
+                                </span>
                             </div>
                         </div>
                         <div id="itens-preco-container">
@@ -58,7 +111,7 @@
                             </span>
                         </div>
                         <div id="botoes">
-                            <button id="botao-adicionar-carinho">Adicionar ao carinho</button>
+                            <button id="botao-adicionar-carrinho">Adicionar ao carrinho</button>
                             <button id="botao-cancelar">Cancelar</button>
                         </div>
                     </span>
@@ -66,9 +119,10 @@
             </div>
 
         </section>
-        </div>
+
     </main>
     <script src="assets/js/pizzas.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
