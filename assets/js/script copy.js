@@ -116,19 +116,25 @@ function mostrarModal(evento) {
     modal.classList.remove("ocultar-modal");
     modal.classList.add("mostrar-modal");
     
-    ocultarModal(modal);
+    eventoBotoesModal()
     colocarConteudoModal(evento)
     destacarTamanhoGrande();
     valorPadraoQuantidadeModal();
     colocarEventoQuantidade();
 }
 
-function ocultarModal(modal) {
+function eventoBotoesModal() {
     let botaoCancelar = document.getElementById("botao-cancelar");
-    botaoCancelar.addEventListener("click", function() {
-        modal.classList.remove("mostrar-modal");
-        modal.classList.add("ocultar-modal");
-    });
+    let botAdicionarCarrinho = document.getElementById("botao-adicionar-carrinho");
+
+    botaoCancelar.addEventListener("click", ocultarModal);
+    botAdicionarCarrinho.addEventListener("click", adicionarCarrinho);
+}
+
+function ocultarModal() {
+    let modal = document.getElementById("modal-exemplo");
+    modal.classList.remove("mostrar-modal");
+    modal.classList.add("ocultar-modal");
 }
 
 function acessarItensModal() {
@@ -234,48 +240,32 @@ function aumentarQuantidade(evento) {
 //---------------------------------------- Area do Carirnho ------------------------------------
 
 function adicionarCarrinho() {
-    //Colocando evento no botão de Adicionar
-    let botAdicionarCarrinho = document.getElementById("botao-adicionar-carrinho");
+    //Pegar as informações do modal
+    let infoModal = coletarInfoModal();
 
-    //Colocando evento de clique
-    botAdicionarCarrinho.addEventListener("click", function() {
+    //Validando se é o primeiro pedido
+    if (pizzasPedido.length == 0) {
+        console.log("primeiro pedido")
+        adicionarNovoProduto(infoModal);
+        atualizarAreaCarrinho();
+        ocultarModal();
+    } else {
+        //Validando se é um produto repetido 
+        let infoProdutoRepetido = validarProdutoRepetido(infoModal);
         
-        //Pegar as informações do modal
-        let infoModal = coletarInfoModal();
-        
-        //Validando se é o primeiro pedido
-        if (pizzasPedido.length == 0) {
-            console.log("primeiro pedido")
-            adicionarNovoProduto(infoModal);
-            percorrerPizzasPedido(mostrarEstruturaCarrinho);
-            percorrerElementosCarrinho(identificarElementosCarrinho);
-            percorrerElementosCarrinho(colocarConteudoCarrinho);
-            percorrerElementosCarrinho(colocarConteudoEstilo);
+        if(infoProdutoRepetido == false) {
+            console.log("pedido novo");
+            adicionarNovoProduto(infoModal)
+            atualizarAreaCarrinho();
+            ocultarModal()
         } else {
-            //Validando se é um produto repetido 
-            let infoProdutoRepetido = validarProdutoRepetido(infoModal);
-            
-            if(infoProdutoRepetido == false) {
-                console.log("pedido novo");
-                adicionarNovoProduto(infoModal)
-                limparAreaCarrinho();
-                percorrerPizzasPedido(mostrarEstruturaCarrinho);
-                percorrerElementosCarrinho(identificarElementosCarrinho);
-                percorrerElementosCarrinho(colocarConteudoCarrinho);
-                percorrerElementosCarrinho(colocarConteudoEstilo);
-
-            } else {
-                console.log("pedido repetido")
-                pizzasPedido[infoProdutoRepetido.posicaoRepetido].quantidadeModal += infoModal.quantidadeModal;
-                limparAreaCarrinho();
-                percorrerPizzasPedido(mostrarEstruturaCarrinho);
-                percorrerElementosCarrinho(identificarElementosCarrinho);
-                percorrerElementosCarrinho(colocarConteudoCarrinho);
-                percorrerElementosCarrinho(colocarConteudoEstilo);
-            }
+            console.log("pedido repetido")
+            pizzasPedido[infoProdutoRepetido.posicaoRepetido].quantidadeModal += infoModal.quantidadeModal;
+            atualizarAreaCarrinho();
+            ocultarModal();
         }
-        console.log(pizzasPedido)
-    });
+    }
+    console.log(pizzasPedido)
 }
 
 function coletarInfoModal() {
@@ -348,7 +338,7 @@ function colocarHtmlCarrinho(container) {
 
 function percorrerPizzasPedido(blocoComandos) {
     for(let cont in pizzasPedido) {
-        blocoComandos();
+        blocoComandos(cont);
     }
 }
 
@@ -370,6 +360,7 @@ function percorrerElementosCarrinho(blocoComandos) {
 
 function identificarElementosCarrinho(cont, elemento) {
     elemento.children[cont].setAttribute("json-id", `${pizzasPedido[cont].jsonIdModal}`);
+    elemento.children[cont].setAttribute("index-carrinho", `${cont}`)
 }
 
 
@@ -386,7 +377,7 @@ function colocarConteudoCarrinho(cont, elemento) {
     elemento.children[cont].children[1].children[2].innerText = "+";
 }
 
-function colocarConteudoEstilo(cont, elemento) {
+function colocarEstiloCarrinho(cont, elemento) {
     elemento.children[cont].classList.add("pizza-escolhida");
     
     elemento.children[cont].children[0].classList.add("escolhida-foto-nome");
@@ -394,7 +385,50 @@ function colocarConteudoEstilo(cont, elemento) {
     elemento.children[cont].children[1].classList.add("botoes-quantidade");
 
     elemento.children[cont].children[0].children[0].classList.add("foto-pizza-escolhida");
+}
 
+ function atualizarAreaCarrinho() {
+    limparAreaCarrinho();
+    percorrerPizzasPedido(validarQuantidadePizzaPedidos);
+
+    percorrerPizzasPedido(mostrarEstruturaCarrinho);
+    percorrerElementosCarrinho(identificarElementosCarrinho);
+    percorrerElementosCarrinho(colocarConteudoCarrinho);
+    percorrerElementosCarrinho(colocarEstiloCarrinho);
+    percorrerElementosCarrinho(colocarEventosCarrinho);
+ }
+
+function colocarEventosCarrinho(cont, elemento) {
+    let botDiminuirQuantidade = elemento.children[cont].children[1].children[0];
+    let botAumentarQuantidade = elemento.children[cont].children[1].children[2];
+
+    botDiminuirQuantidade.addEventListener("click", diminuirQuantidadeCarrinho);
+    botAumentarQuantidade.addEventListener("click", aumentarQuantidadeCarrinho);
+}
+
+
+
+function diminuirQuantidadeCarrinho(evento) {
+    let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    quantidade--;
+    pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
+    atualizarAreaCarrinho();
+}
+
+function aumentarQuantidadeCarrinho(evento) {
+    let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    quantidade++;
+    pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
+    atualizarAreaCarrinho();
+}
+
+function validarQuantidadePizzaPedidos(contador) {
+    //Condição para remover o item do carrinho caso a quantidade seja menor que 1.
+    if(pizzasPedido[contador].quantidadeModal < 1) {
+        pizzasPedido.splice(contador, 1);
+    }
 }
 
 function mostrarConsole() {
@@ -415,17 +449,4 @@ percorrerEstruturaHTML(colocarEstilo)
 percorrerEstruturaHTML(colocarEventosProdutos)
 
 percorrerTamanhosModal(colocarEventoTamanhos)
-
-adicionarCarrinho()
-
-
-
-
-
-
-
-
-
-
-
 
