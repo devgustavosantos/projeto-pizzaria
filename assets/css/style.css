@@ -149,9 +149,16 @@ p {
 /* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho*/
 #itens-carrinho {
     background-color: #9CCBE6;
-    width: 30%;
     overflow: hidden;
     padding: 45px 20px;
+}
+
+.mostrar-carrinhos {
+    width: 30%;
+}
+
+.ocultar-carrinho  {
+    width: 0;
 }
 
 #itens-carrinho > h2 {

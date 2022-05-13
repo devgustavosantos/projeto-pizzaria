@@ -390,12 +390,14 @@ function colocarEstiloCarrinho(cont, elemento) {
  function atualizarAreaCarrinho() {
     limparAreaCarrinho();
     percorrerPizzasPedido(validarQuantidadePizzaPedidos);
-
     percorrerPizzasPedido(mostrarEstruturaCarrinho);
     percorrerElementosCarrinho(identificarElementosCarrinho);
     percorrerElementosCarrinho(colocarConteudoCarrinho);
     percorrerElementosCarrinho(colocarEstiloCarrinho);
     percorrerElementosCarrinho(colocarEventosCarrinho);
+    percorrerPizzasPedido(atualizarSubtotal)
+    atualizarDesconto();
+    atualizarTotal();
  }
 
 function colocarEventosCarrinho(cont, elemento) {
@@ -431,22 +433,63 @@ function validarQuantidadePizzaPedidos(contador) {
     }
 }
 
+function atualizarSubtotal(cont) {
+    let txtSubtotal = document.getElementById("itens-subtotal-carrinho").children[1];
+    let indexDoProdutoNoJson = pizzasPedido[cont].jsonIdModal - 1;
+    let quantidade = pizzasPedido[cont].quantidadeModal;
+    let precoUnitario = pizzaJson[indexDoProdutoNoJson].price;
+    let precoComQuantidade = quantidade * precoUnitario;
+
+    if(cont == 0) {
+        valorSubtotal = 0;
+        valorSubtotal = precoComQuantidade;
+    } else {
+        valorSubtotal += precoComQuantidade;
+    }
+
+    //Manipulação para não haver casas decimais indesejadas
+    valorSubtotal = parseFloat(valorSubtotal.toFixed(2));
+
+    //Garantindo que mostre duas casas decimais na tela
+    txtSubtotal.innerText = `R$ ${valorSubtotal.toFixed(2)}`;
+
+}
+
+function atualizarDesconto() {
+    let txtDesconto = document.getElementById("itens-desconto-carrinho").children[1];
+    valorDesconto = (valorSubtotal * 10) /100;
+
+    //Manipulação para não haver casas decimais indesejadas
+    valorDesconto = parseFloat(valorDesconto.toFixed(2));
+
+    //Garantindo que mostre duas casas decimais na tela
+    txtDesconto.innerText = `R$ ${valorDesconto.toFixed(2)}`;
+}
+
+function atualizarTotal() {
+    let txtTotal = document.getElementById("itens-total-carrinho").children[1];
+    valorTotal = valorSubtotal - valorDesconto;
+    txtTotal.innerText = `R$ ${valorTotal.toFixed(2)}`;
+}
+
 function mostrarConsole() {
     console.log("teste");
 }
 
 
 let pizzasPedido = []
+let valorSubtotal;
+let valorDesconto;
+let valorTotal;
 
 
 
+estruturaHtmlNaTela();
 
-estruturaHtmlNaTela()
+percorrerEstruturaHTML(colocarConteudo);
+percorrerEstruturaHTML(colocarIdentificacao);
+percorrerEstruturaHTML(colocarEstilo);
+percorrerEstruturaHTML(colocarEventosProdutos);
 
-percorrerEstruturaHTML(colocarConteudo)
-percorrerEstruturaHTML(colocarIdentificacao)
-percorrerEstruturaHTML(colocarEstilo)
-percorrerEstruturaHTML(colocarEventosProdutos)
-
-percorrerTamanhosModal(colocarEventoTamanhos)
+percorrerTamanhosModal(colocarEventoTamanhos);
 
