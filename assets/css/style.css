@@ -2,26 +2,60 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-/* Catálogo da página *//* Catálogo da página *//* Catálogo da página */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* html {
+    background-color: red;
+}
+*/
 body {
     background-color: #EEEEEE;
     font-family: 'Hepta Slab', Helvetica, Arial;
-    max-width: 100vw;
-   
+    width: 100%;
+    overflow-x: hidden;
 }
 
 main {
     display: flex;
 }
 
+#menu-mobile{
+    display: none;
+    overflow: hidden;
+
+    height: 57px;
+    padding: 8px 15px;
+    
+    background: #399ADE;
+}
+
+#itens-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 15px 20px;
+    width: 100px;
+
+    border-radius: 5px;
+
+    background-color: #A9DCFF;
+}
+
+#itens-menu *:nth-child(n){
+    font-size: 25px;
+    font-weight: 500;
+
+
+}
+/* Catálogo da página *//* Catálogo da página *//* Catálogo da página */
 #catalogo {
-    width: 70%;
+    width: 100%;
+    padding: 20px;
 }
 
 h2, h3, p {
@@ -39,7 +73,7 @@ h2 {
 
 h3 {
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #555555;
 }
 
@@ -51,7 +85,7 @@ p {
 
 #area-das-pizzas {
     display: grid;
-    justify-content: space-around;
+    justify-content: space-evenly;
     grid-template-areas:
     "topo-e topo-c topo-d"
     "meio-e meio-c meio-d"
@@ -147,21 +181,25 @@ p {
 }
 
 /* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho*/
-#itens-carrinho {
+.itens-carrinho {
     background-color: #9CCBE6;
     overflow: hidden;
     padding: 45px 20px;
+    width: 41%;
+    transition: all 0.2s ease;
 }
 
-.mostrar-carrinhos {
-    width: 30%;
-}
 
-.ocultar-carrinho  {
+.ocultar-itens-carrinho  {
+    background-color: #9CCBE6;
+    overflow: hidden;
+    
+    padding: 45px 0;
     width: 0;
+    transition: all 0.2s ease;
 }
 
-#itens-carrinho > h2 {
+.itens-carrinho > h2 {
     text-align: left;
     font-size: 23px;
     margin-bottom: 15px;
@@ -169,7 +207,6 @@ p {
 
 .pizza-escolhida {
     height: 40px;
-    /* border: 1px solid green; */
     margin: 3px auto;
     overflow: hidden;
     display: flex;
@@ -282,7 +319,7 @@ hr {
 
 .mostrar-modal {
     /* Usei o calc para reirar a diferença da barra de scroll */
-    width: calc(100vw - 17px);
+    width: 100%;
     opacity: 1;
     transition: width 0.1s ease, opacity 0.5s ease 0.2s;
 }
@@ -393,7 +430,7 @@ hr {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    width: 67%;
+    width: 70%;
 }
 
 #preco-modal {
@@ -457,3 +494,109 @@ hr {
     margin-left: 30px;
 }
 
+
+
+/* Media Queries *//* Media Queries *//* Media Queries *//* Media Queries *//* Media Queries */
+
+@media (max-width: 1000px){
+    #area-das-pizzas { 
+        grid-template-areas:
+        "topo-e topo-c" 
+        "topo-d meio-e"
+        "meio-c meio-d"
+        "base-e vazio-c";
+    }
+
+    #janela-modal {
+        padding: 30px 10px;
+    }
+}
+
+
+@media (max-width: 840px){
+    #menu-mobile{
+        display: flex;
+        justify-content: end;
+    }
+
+    #area-das-pizzas { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-pizza {
+        max-width: initial;
+    }
+
+    #janela-modal {
+        height: 100vh;
+        border-radius: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow-y: scroll;
+
+        position: relative;
+    }
+
+    #janela-modal img{
+        display: block;
+        margin: 60px auto 10px;
+        width: 70vw;
+        height: 70vw;
+    }
+    
+    #janela-modal > span {
+        padding: 10px;
+        gap: 20px
+    }
+
+    #janela-modal h3 {
+        margin-bottom: 10px;
+    }
+
+    #itens-preco {
+        width: 100%;
+    }
+    
+    #quantidade-modal {
+        width: 145px;
+        height: 60px;
+        font-size: 20px;
+        align-items: center;
+    }
+    
+    #quantidade-modal span:nth-child(n) {
+        height: initial; 
+        padding: initial;
+    }
+
+    #botao-adicionar-carrinho {
+        display: block;
+        width: 100%;
+        font-size: 20px;
+    }
+
+    #botoes button:nth-child(2) {
+        margin: 0;
+
+        position: absolute;
+        z-index: 1;
+
+        top: 30px;
+        left: 50%;
+
+        transform: translateX(-20%);
+
+        visibility: hidden;
+    }
+    
+    #botoes button:nth-child(2)::before{
+        content: "Voltar";
+        visibility: visible ;
+    }
+    
+
+}

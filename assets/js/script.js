@@ -82,7 +82,7 @@ function colocarEstilo(item) {
     areaDasPizzas.children[item].classList.add("container-pizza");
 
     areaDasPizzas.children[item].children[0].classList.add("topo-container");
-    areaDasPizzas.children[item].children[1].classList.add("base-conteiner");
+    areaDasPizzas.children[item].children[1].classList.add("base-container");
 
     areaDasPizzas.children[item].children[0].children[0].classList.add("container-foto-pizza");
     areaDasPizzas.children[item].children[0].children[1].classList.add("icone-adicionar");
@@ -116,19 +116,25 @@ function mostrarModal(evento) {
     modal.classList.remove("ocultar-modal");
     modal.classList.add("mostrar-modal");
     
-    ocultarModal(modal);
+    eventoBotoesModal()
     colocarConteudoModal(evento)
     destacarTamanhoGrande();
     valorPadraoQuantidadeModal();
     colocarEventoQuantidade();
 }
 
-function ocultarModal(modal) {
+function eventoBotoesModal() {
     let botaoCancelar = document.getElementById("botao-cancelar");
-    botaoCancelar.addEventListener("click", function() {
-        modal.classList.remove("mostrar-modal");
-        modal.classList.add("ocultar-modal");
-    });
+    let botAdicionarCarrinho = document.getElementById("botao-adicionar-carrinho");
+
+    botaoCancelar.addEventListener("click", ocultarModal);
+    botAdicionarCarrinho.addEventListener("click", adicionarCarrinho);
+}
+
+function ocultarModal() {
+    let modal = document.getElementById("modal-exemplo");
+    modal.classList.remove("mostrar-modal");
+    modal.classList.add("ocultar-modal");
 }
 
 function acessarItensModal() {
@@ -234,63 +240,247 @@ function aumentarQuantidade(evento) {
 //---------------------------------------- Area do Carirnho ------------------------------------
 
 function adicionarCarrinho() {
-    //Colocando evento no botão de Adicionar
-    let botAdicionarCarrinho = document.getElementById("botao-adicionar-carrinho");
+    //Pegar as informações do modal
+    let infoModal = coletarInfoModal();
 
-    //Colocando evento de clique
-    botAdicionarCarrinho.addEventListener("click", function() {
-        //Pegar as informações do modal
-        let infoModal = {
-            jsonIdModal: parseInt(document.getElementById("janela-modal").getAttribute("json-id")),
-            tamanhoModal: document.getElementById("tamanho-escolhido").children[0].children[0].innerText,
-            quantidadeModal: parseInt(document.getElementById("quantidade-modal").children[1].innerText)
-        };
+    //Validando se é o primeiro pedido
+    if (pizzasPedido.length == 0) {
+        console.log("primeiro pedido")
+        adicionarNovoProduto(infoModal);
+        atualizarAreaCarrinho();
+        ocultarModal();
+    } else {
+        //Validando se é um produto repetido 
+        let infoProdutoRepetido = validarProdutoRepetido(infoModal);
         
-        console.log(infoModal)
-
-        //Validando se é o primeiro pedido
-        if (pizzasPedido.length == 0) {
-            pizzasPedido.push(infoModal)
-            console.log("primeiro pedido")
+        if(infoProdutoRepetido == false) {
+            console.log("pedido novo");
+            adicionarNovoProduto(infoModal)
+            atualizarAreaCarrinho();
+            ocultarModal()
         } else {
-            //Validando se é um produto repetido 
-            let pedidoRepetido;
-            let posicaoRepetido;
-            //Percorrendo o array com os pedidos já selecionados
-            for(let cont in pizzasPedido) {
-                if(pizzasPedido[cont].jsonIdModal == infoModal.jsonIdModal && pizzasPedido[cont].tamanhoModal == infoModal.tamanhoModal) {
-                    pedidoRepetido = true
-                    posicaoRepetido = cont
-                } 
-            }
-            
-            if(pedidoRepetido == true) {
-                console.log("pedido repetido")
-                let novaQuantidade = infoModal.quantidadeModal + pizzasPedido[posicaoRepetido].quantidadeModal
-                pizzasPedido[posicaoRepetido].quantidadeModal = novaQuantidade;
-                
-            } else {
-                console.log("pedido novo");
-                pizzasPedido.push(infoModal)
-            }
+            console.log("pedido repetido")
+            pizzasPedido[infoProdutoRepetido.posicaoRepetido].quantidadeModal += infoModal.quantidadeModal;
+            atualizarAreaCarrinho();
+            ocultarModal();
         }
-        console.log(pizzasPedido)
-    });
+    }
+    console.log(pizzasPedido)
 }
+
+function coletarInfoModal() {
+    return {
+        jsonIdModal: parseInt(document.getElementById("janela-modal").getAttribute("json-id")),
+        tamanhoModal: document.getElementById("tamanho-escolhido").children[0].children[0].innerText,
+        quantidadeModal: parseInt(document.getElementById("quantidade-modal").children[1].innerText)
+    };
+}
+
+function adicionarNovoProduto(infoModal) {
+    pizzasPedido.push(infoModal);
+}
+
+function validarProdutoRepetido(infoModal) {
+    for(let cont in pizzasPedido) {
+        if(pizzasPedido[cont].jsonIdModal == infoModal.jsonIdModal && pizzasPedido[cont].tamanhoModal == infoModal.tamanhoModal) {
+            //Se retornar apenas a posição(cont), e o primeiro "item" do array for igual ao que está no modal, ele vai considerar que não há itens repetidos (pois 0 é igual a false), e vai colocar como se fosse um novo pedido.
+            let infoProdutoRepetido = {
+                pedidoRepetido: true,
+                posicaoRepetido: cont
+            }
+            return infoProdutoRepetido;
+        } 
+    }
+    return false;
+}
+
 
 function estruturaPizzaEscolhida() {
     let pizzaEscolhida = {
         container: document.createElement("div"),
+        
         itensConteudo: document.createElement("span"),
         itensQuantidade: document.createElement("span"),
+        
         conteudoFoto: document.createElement("img"),
         conteudoSabor: document.createElement("span"),
+        
         quantidadeBotDiminuir: document.createElement("span"),
         quantidadeTxtQunatidade: document.createElement("span"),
         quantidadeBotAumentar: document.createElement("span")
     }
-
     return pizzaEscolhida;
+}
+
+function organizarPizzaEscolhida(pizza) {
+    pizza.container.appendChild(pizza.itensConteudo);
+    pizza.container.appendChild(pizza.itensQuantidade);
+
+    pizza.itensConteudo.appendChild(pizza.conteudoFoto);
+    pizza.itensConteudo.appendChild(pizza.conteudoSabor);
+
+    pizza.itensQuantidade.appendChild(pizza.quantidadeBotDiminuir);
+    pizza.itensQuantidade.appendChild(pizza.quantidadeTxtQunatidade);
+    pizza.itensQuantidade.appendChild(pizza.quantidadeBotAumentar);
+
+    return pizza.container;
+}
+
+function limparAreaCarrinho() {
+    let areaDasPizzas = document.getElementById("area-pizzas-escolhidas");
+    areaDasPizzas.innerHTML = "";
+}
+
+function colocarHtmlCarrinho(container) {
+    let areaDasPizzas = document.getElementById("area-pizzas-escolhidas");
+    areaDasPizzas.appendChild(container);
+}
+
+function percorrerPizzasPedido(blocoComandos) {
+    for(let cont in pizzasPedido) {
+        blocoComandos(cont);
+    }
+}
+
+function mostrarEstruturaCarrinho() {
+    let estrutura = estruturaPizzaEscolhida();
+    let container = organizarPizzaEscolhida(estrutura);
+    colocarHtmlCarrinho(container);
+}
+
+function percorrerElementosCarrinho(blocoComandos) {
+    let pizzasEscolhidas = document.getElementById("area-pizzas-escolhidas");
+    for(let cont in pizzasEscolhidas.children) {
+        //Condição para não acessar itens indesejados desse "Array"
+        if (cont < pizzasEscolhidas.children.length) {
+            blocoComandos(cont, pizzasEscolhidas);
+        }
+    }
+}
+
+function identificarElementosCarrinho(cont, elemento) {
+    elemento.children[cont].setAttribute("json-id", `${pizzasPedido[cont].jsonIdModal}`);
+    elemento.children[cont].setAttribute("index-carrinho", `${cont}`)
+}
+
+
+function colocarConteudoCarrinho(cont, elemento) {
+    let jsonIdProduto = elemento.children[cont].getAttribute("json-id");
+    let indexDoProduto = parseInt(jsonIdProduto) - 1;
+
+    elemento.children[cont].children[0].children[0].setAttribute("src", `${pizzaJson[indexDoProduto].img}`);
+    elemento.children[cont].children[0].children[0].setAttribute("alt", `Foto de uma deliciosa pizza sabor: ${pizzaJson[indexDoProduto].name}`);
+    elemento.children[cont].children[0].children[1].innerText = `${pizzaJson[indexDoProduto].name} (${pizzasPedido[cont].tamanhoModal.substr(0, 1)})`;
+
+    elemento.children[cont].children[1].children[0].innerText = "-";
+    elemento.children[cont].children[1].children[1].innerText = `${pizzasPedido[cont].quantidadeModal}`;
+    elemento.children[cont].children[1].children[2].innerText = "+";
+}
+
+function colocarEstiloCarrinho(cont, elemento) {
+    elemento.children[cont].classList.add("pizza-escolhida");
+    
+    elemento.children[cont].children[0].classList.add("escolhida-foto-nome");
+    elemento.children[cont].children[1].classList.add("quantidade-carrinho");
+    elemento.children[cont].children[1].classList.add("botoes-quantidade");
+
+    elemento.children[cont].children[0].children[0].classList.add("foto-pizza-escolhida");
+}
+
+
+function atualizarAreaCarrinho() {
+    limparAreaCarrinho();
+    percorrerPizzasPedido(validarQuantidadePizzaPedidos);
+    percorrerPizzasPedido(mostrarEstruturaCarrinho);
+    percorrerElementosCarrinho(identificarElementosCarrinho);
+    percorrerElementosCarrinho(colocarConteudoCarrinho);
+    percorrerElementosCarrinho(colocarEstiloCarrinho);
+    percorrerElementosCarrinho(colocarEventosCarrinho);
+    percorrerPizzasPedido(atualizarSubtotal)
+    atualizarDesconto();
+    atualizarTotal();
+    mostrarAreaCarrinho();
+}
+
+function colocarEventosCarrinho(cont, elemento) {
+    let botDiminuirQuantidade = elemento.children[cont].children[1].children[0];
+    let botAumentarQuantidade = elemento.children[cont].children[1].children[2];
+
+    botDiminuirQuantidade.addEventListener("click", diminuirQuantidadeCarrinho);
+    botAumentarQuantidade.addEventListener("click", aumentarQuantidadeCarrinho);
+}
+
+function diminuirQuantidadeCarrinho(evento) {
+    let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    quantidade--;
+    pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
+    atualizarAreaCarrinho();
+}
+
+function aumentarQuantidadeCarrinho(evento) {
+    let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    quantidade++;
+    pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
+    atualizarAreaCarrinho();
+}
+
+function validarQuantidadePizzaPedidos(contador) {
+    //Condição para remover o item do carrinho caso a quantidade seja menor que 1.
+    if(pizzasPedido[contador].quantidadeModal < 1) {
+        pizzasPedido.splice(contador, 1);
+    }
+}
+
+function atualizarSubtotal(cont) {
+    let txtSubtotal = document.getElementById("itens-subtotal-carrinho").children[1];
+    let indexDoProdutoNoJson = pizzasPedido[cont].jsonIdModal - 1;
+    let quantidade = pizzasPedido[cont].quantidadeModal;
+    let precoUnitario = pizzaJson[indexDoProdutoNoJson].price;
+    let precoComQuantidade = quantidade * precoUnitario;
+
+    if(cont == 0) {
+        valorSubtotal = 0;
+        valorSubtotal = precoComQuantidade;
+    } else {
+        valorSubtotal += precoComQuantidade;
+    }
+
+    //Manipulação para não haver casas decimais indesejadas
+    valorSubtotal = parseFloat(valorSubtotal.toFixed(2));
+
+    //Garantindo que mostre duas casas decimais na tela
+    txtSubtotal.innerText = `R$ ${valorSubtotal.toFixed(2)}`;
+}
+
+function atualizarDesconto() {
+    let txtDesconto = document.getElementById("itens-desconto-carrinho").children[1];
+    valorDesconto = (valorSubtotal * 10) /100;
+
+    //Manipulação para não haver casas decimais indesejadas
+    valorDesconto = parseFloat(valorDesconto.toFixed(2));
+
+    //Garantindo que mostre duas casas decimais na tela
+    txtDesconto.innerText = `R$ ${valorDesconto.toFixed(2)}`;
+}
+
+function atualizarTotal() {
+    let txtTotal = document.getElementById("itens-total-carrinho").children[1];
+    valorTotal = valorSubtotal - valorDesconto;
+    txtTotal.innerText = `R$ ${valorTotal.toFixed(2)}`;
+}
+
+function mostrarAreaCarrinho() {
+    let areaCarrinho = document.getElementById("area-carrinho");
+    if(pizzasPedido.length == 0) {
+        areaCarrinho.classList.remove("itens-carrinho");
+        areaCarrinho.classList.add("ocultar-itens-carrinho");
+    } else {
+        areaCarrinho.classList.remove("ocultar-itens-carrinho");
+        areaCarrinho.classList.add("itens-carrinho");
+    }
+    
 }
 
 function mostrarConsole() {
@@ -299,26 +489,18 @@ function mostrarConsole() {
 
 
 let pizzasPedido = []
+let valorSubtotal;
+let valorDesconto;
+let valorTotal;
 
 
 
+estruturaHtmlNaTela();
 
-estruturaHtmlNaTela()
+percorrerEstruturaHTML(colocarConteudo);
+percorrerEstruturaHTML(colocarIdentificacao);
+percorrerEstruturaHTML(colocarEstilo);
+percorrerEstruturaHTML(colocarEventosProdutos);
 
-percorrerEstruturaHTML(colocarConteudo)
-percorrerEstruturaHTML(colocarIdentificacao)
-percorrerEstruturaHTML(colocarEstilo)
-percorrerEstruturaHTML(colocarEventosProdutos)
-
-percorrerTamanhosModal(colocarEventoTamanhos)
-
-adicionarCarrinho()
-
-
-
-
-
-
-
-
+percorrerTamanhosModal(colocarEventoTamanhos);
 
