@@ -495,7 +495,7 @@ function verificarVersao() {
     if(largura < 841) {
         versaoMobile()
         if(mostrarCarrinhoMobile == true) {
-            atualizarAreaCarrinho ();
+            mostrarAreaCarrinho();
         } else {
             ocultarAreaCarrinho()
         }
