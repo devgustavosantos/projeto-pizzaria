@@ -181,6 +181,15 @@ p {
 }
 
 /* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho *//* Itens carrinho*/
+
+#botao-fechar-carrinho{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    margin-bottom: 10px;
+    display: none;
+}
+
 .itens-carrinho {
     background-color: #9CCBE6;
     overflow: hidden;
@@ -484,7 +493,7 @@ hr {
     cursor: pointer;
 }
 
-#botoes button:nth-child(2){
+#botoes-cancelar-voltar{
     font-family: 'Hepta Slab', Helvetica, Arial;
     font-size: 15px;
     font-weight: 400;
@@ -492,6 +501,14 @@ hr {
     border: none;
     cursor: pointer;
     margin-left: 30px;
+}
+
+#botoes-cancelar-voltar span:nth-child(1) {
+    display: block;
+}
+
+#botoes-cancelar-voltar span:nth-child(2) {
+    display: none;
 }
 
 
@@ -517,6 +534,15 @@ hr {
     #menu-mobile{
         display: flex;
         justify-content: end;
+        position: fixed;
+        width: 100vw;
+        z-index: 2;
+    }
+
+    h1 {
+        font-weight: 700;
+        margin: 60px 0px 20px;
+        font-size: 30px;
     }
 
     #area-das-pizzas { 
@@ -529,15 +555,47 @@ hr {
         max-width: initial;
     }
 
+    #botao-fechar-carrinho {
+        display: block;
+    }
+
+    .itens-carrinho {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 5;
+        width: 100vw;
+        min-height: 100vh;
+        padding: 20px;
+        transition: all 0.5s ease;
+    }
+    
+    .ocultar-itens-carrinho {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        z-index: 5;
+        width: 100vw;
+        min-height: 100vh;
+        padding: 20px;
+        transition: all .5s ease;
+    }
+    
+    #finalizar-compra {
+        padding: 20px 0;
+    }
+
+    #area-modal {
+        z-index: 3;
+    }
+
     #janela-modal {
         height: 100vh;
+        padding-bottom: 90px;
         border-radius: 0;
-
         display: flex;
         flex-direction: column;
-
         overflow-y: scroll;
-
         position: relative;
     }
 
@@ -579,24 +637,21 @@ hr {
         font-size: 20px;
     }
 
-    #botoes button:nth-child(2) {
+    #botoes-cancelar-voltar {
         margin: 0;
-
         position: absolute;
         z-index: 1;
-
         top: 30px;
         left: 50%;
+        transform: translateX(-50%);
+    }
 
-        transform: translateX(-20%);
-
-        visibility: hidden;
+    #botoes-cancelar-voltar span:nth-child(1) {
+        display: none;
     }
     
-    #botoes button:nth-child(2)::before{
-        content: "Voltar";
-        visibility: visible ;
+    #botoes-cancelar-voltar span:nth-child(2) {
+        display: block;
     }
     
-
 }

@@ -124,7 +124,7 @@ function mostrarModal(evento) {
 }
 
 function eventoBotoesModal() {
-    let botaoCancelar = document.getElementById("botao-cancelar");
+    let botaoCancelar = document.getElementById("botoes-cancelar-voltar");
     let botAdicionarCarrinho = document.getElementById("botao-adicionar-carrinho");
 
     botaoCancelar.addEventListener("click", ocultarModal);
@@ -399,7 +399,12 @@ function atualizarAreaCarrinho() {
     percorrerPizzasPedido(atualizarSubtotal)
     atualizarDesconto();
     atualizarTotal();
-    mostrarAreaCarrinho();
+   
+    verificarVersao();
+
+
+    quantidadeItensCarrinho()
+
 }
 
 function colocarEventosCarrinho(cont, elemento) {
@@ -483,6 +488,61 @@ function mostrarAreaCarrinho() {
     
 }
 
+//------------------------------------ Versão Mobile -----------------------------------------
+
+function verificarVersao() {
+    let largura = window.screen.width;
+    if(largura < 841) {
+        versaoMobile()
+        if(mostrarCarrinhoMobile == true) {
+            atualizarAreaCarrinho ();
+        } else {
+            ocultarAreaCarrinho()
+        }
+    } else {
+        mostrarAreaCarrinho();
+    }
+}
+
+function versaoMobile() {
+    botoesMobile();
+   
+}
+
+function botoesMobile() {
+    let botCarrinho = document.getElementById("itens-menu");
+    let botFecharCarrinho = document.getElementById("botao-fechar-carrinho");
+    
+    botCarrinho.addEventListener("click", mostrarAreaCarrinho);
+    botCarrinho.addEventListener("click", ativarMostrarCarrinho);
+
+    botFecharCarrinho.addEventListener("click", ocultarAreaCarrinho);
+    botFecharCarrinho.addEventListener("click", desativarMostrarCarrinho);
+
+}
+
+function ativarMostrarCarrinho() {
+    mostrarCarrinhoMobile = true;
+}
+
+function desativarMostrarCarrinho() {
+    mostrarCarrinhoMobile = false;
+}
+
+function ocultarAreaCarrinho(){
+    console.log("clicou para fechar")
+    let areaCarrinho = document.getElementById("area-carrinho");
+    areaCarrinho.classList.remove("itens-carrinho");
+    areaCarrinho.classList.add("ocultar-itens-carrinho");
+}
+
+function quantidadeItensCarrinho() {
+    console.log(pizzasPedido.length)
+    
+    let quantidadeDeItens = document.getElementById("quantidade-mobile");
+    quantidadeDeItens.innerText = `${pizzasPedido.length}`;
+}
+
 function mostrarConsole() {
     console.log("teste");
 }
@@ -492,6 +552,7 @@ let pizzasPedido = []
 let valorSubtotal;
 let valorDesconto;
 let valorTotal;
+let mostrarCarrinhoMobile = false;
 
 
 
@@ -504,3 +565,6 @@ percorrerEstruturaHTML(colocarEventosProdutos);
 
 percorrerTamanhosModal(colocarEventoTamanhos);
 
+verificarVersao()
+
+window.addEventListener("resize", verificarVersao)
