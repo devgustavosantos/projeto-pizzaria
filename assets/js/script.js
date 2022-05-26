@@ -481,6 +481,8 @@ function mostrarAreaCarrinho() {
     if(pizzasPedido.length == 0) {
         areaCarrinho.classList.remove("itens-carrinho");
         areaCarrinho.classList.add("ocultar-itens-carrinho");
+        mostrarCarrinhoMobile = false;
+
     } else {
         areaCarrinho.classList.remove("ocultar-itens-carrinho");
         areaCarrinho.classList.add("itens-carrinho");
@@ -518,7 +520,6 @@ function botoesMobile() {
 
     botFecharCarrinho.addEventListener("click", ocultarAreaCarrinho);
     botFecharCarrinho.addEventListener("click", desativarMostrarCarrinho);
-
 }
 
 function ativarMostrarCarrinho() {
@@ -530,7 +531,6 @@ function desativarMostrarCarrinho() {
 }
 
 function ocultarAreaCarrinho(){
-    console.log("clicou para fechar")
     let areaCarrinho = document.getElementById("area-carrinho");
     areaCarrinho.classList.remove("itens-carrinho");
     areaCarrinho.classList.add("ocultar-itens-carrinho");
@@ -568,3 +568,7 @@ percorrerTamanhosModal(colocarEventoTamanhos);
 verificarVersao()
 
 window.addEventListener("resize", verificarVersao)
+
+
+
+// Bug encontrado: se a pizza for adicionada, removida e depois adicionada novamente, o carrinho abre
