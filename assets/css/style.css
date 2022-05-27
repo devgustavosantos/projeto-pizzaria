@@ -578,6 +578,12 @@ hr {
         padding: 20px;
         transition: all .5s ease;
     }
+
+    #area-carrinho > h2 {
+        text-align: left;
+        font-size: 23px;
+        margin-bottom: 15px;
+    }
     
     #finalizar-compra {
         padding: 20px 0;

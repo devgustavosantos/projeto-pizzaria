@@ -102,8 +102,8 @@ function mostrarModal(evento) {
     modal.classList.remove("ocultar-modal");
     modal.classList.add("mostrar-modal");
     
-    eventoBotoesModal()
-    colocarConteudoModal(evento)
+    eventoBotoesModal();
+    colocarConteudoModal(evento);
     destacarTamanhoGrande();
     valorPadraoQuantidadeModal();
     colocarEventoQuantidade();
@@ -141,12 +141,12 @@ function acessarItensModal() {
 }
 
 function colocarConteudoModal(itemQueAtivou) {
-    const jsonIdDoPai = itemQueAtivou.currentTarget.parentNode.getAttribute("json-id")
+    const jsonIdDoPai = itemQueAtivou.currentTarget.parentNode.getAttribute("json-id");
     const indexPaiNoJson = parseInt(jsonIdDoPai) - 1;
 
     let itensModal = acessarItensModal();
 
-    itensModal.janelaModal.setAttribute("json-id", `${jsonIdDoPai}`)
+    itensModal.janelaModal.setAttribute("json-id", `${jsonIdDoPai}`);
     itensModal.fotoModal.setAttribute("src", `${pizzaJson[indexPaiNoJson].img}`);
     itensModal.fotoModal.setAttribute("alt", ` Foto de uma deliciosa pizza de ${pizzaJson[indexPaiNoJson].name}`);
     itensModal.saborModal.innerText = `${pizzaJson[indexPaiNoJson].name}`;
@@ -174,8 +174,8 @@ function colocarEventoTamanhos(filhoTamanhos) {
 
 //Por padrão, sempre que o modal for aberto o tamanho grande estará selecionado
 function destacarTamanhoGrande() {
-    percorrerTamanhosModal(suavizarTamanho)
-    let tamanhoGrande = document.getElementById("tamanhos").children[2]
+    percorrerTamanhosModal(suavizarTamanho);
+    let tamanhoGrande = document.getElementById("tamanhos").children[2];
     tamanhoGrande.setAttribute("id", "tamanho-escolhido");
 }
 
@@ -231,7 +231,7 @@ function adicionarCarrinho() {
 
     //Validando se é o primeiro pedido
     if (pizzasPedido.length == 0) {
-        console.log("primeiro pedido")
+        console.log("primeiro pedido");
         adicionarNovoProduto(infoModal);
         atualizarAreaCarrinho();
         ocultarModal();
@@ -241,17 +241,17 @@ function adicionarCarrinho() {
         
         if(infoProdutoRepetido == false) {
             console.log("pedido novo");
-            adicionarNovoProduto(infoModal)
+            adicionarNovoProduto(infoModal);
             atualizarAreaCarrinho();
-            ocultarModal()
+            ocultarModal();
         } else {
-            console.log("pedido repetido")
+            console.log("pedido repetido");
             pizzasPedido[infoProdutoRepetido.posicaoRepetido].quantidadeModal += infoModal.quantidadeModal;
             atualizarAreaCarrinho();
             ocultarModal();
         }
     }
-    console.log(pizzasPedido)
+    console.log(pizzasPedido);
 }
 
 function coletarInfoModal() {
@@ -376,6 +376,7 @@ function colocarEstiloCarrinho(cont, elemento) {
 
 function atualizarAreaCarrinho() {
     limparAreaCarrinho();
+    
     percorrerPizzasPedido(validarQuantidadePizzaPedidos);
     percorrerPizzasPedido(mostrarEstruturaCarrinho);
     percorrerElementosCarrinho(identificarElementosCarrinho);
@@ -383,14 +384,11 @@ function atualizarAreaCarrinho() {
     percorrerElementosCarrinho(colocarEstiloCarrinho);
     percorrerElementosCarrinho(colocarEventosCarrinho);
     percorrerPizzasPedido(atualizarSubtotal)
+    
     atualizarDesconto();
     atualizarTotal();
-   
     verificarVersao();
-
-
-    quantidadeItensCarrinho()
-
+    quantidadeItensCarrinho();
 }
 
 function colocarEventosCarrinho(cont, elemento) {
@@ -403,7 +401,7 @@ function colocarEventosCarrinho(cont, elemento) {
 
 function diminuirQuantidadeCarrinho(evento) {
     let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
-    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal;
     quantidade--;
     pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
     atualizarAreaCarrinho();
@@ -411,7 +409,7 @@ function diminuirQuantidadeCarrinho(evento) {
 
 function aumentarQuantidadeCarrinho(evento) {
     let indexQueAtivou = evento.currentTarget.parentNode.parentNode.getAttribute("index-carrinho");
-    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal
+    let quantidade = pizzasPedido[indexQueAtivou].quantidadeModal;
     quantidade++;
     pizzasPedido[indexQueAtivou].quantidadeModal = quantidade;
     atualizarAreaCarrinho();
@@ -481,21 +479,21 @@ function mostrarAreaCarrinho() {
 function verificarVersao() {
     let largura = window.screen.width;
     if(largura < 841) {
-        versaoMobile()
+        botoesMobile();
         if(mostrarCarrinhoMobile == true) {
             mostrarAreaCarrinho();
         } else {
-            ocultarAreaCarrinho()
+            ocultarAreaCarrinho();
         }
     } else {
         mostrarAreaCarrinho();
     }
 }
 
-function versaoMobile() {
-    botoesMobile();
+// function versaoMobile() {
+//     botoesMobile();
    
-}
+// }
 
 function botoesMobile() {
     let botCarrinho = document.getElementById("itens-menu");
@@ -509,7 +507,9 @@ function botoesMobile() {
 }
 
 function ativarMostrarCarrinho() {
-    mostrarCarrinhoMobile = true;
+    if(pizzasPedido.length > 0){
+        mostrarCarrinhoMobile = true;
+    }
 }
 
 function desativarMostrarCarrinho() {
@@ -523,7 +523,7 @@ function ocultarAreaCarrinho(){
 }
 
 function quantidadeItensCarrinho() {
-    console.log(pizzasPedido.length)
+    console.log(pizzasPedido.length);
     
     let quantidadeDeItens = document.getElementById("quantidade-mobile");
     quantidadeDeItens.innerText = `${pizzasPedido.length}`;
@@ -534,7 +534,7 @@ function mostrarConsole() {
 }
 
 
-let pizzasPedido = []
+let pizzasPedido = [];
 let valorSubtotal;
 let valorDesconto;
 let valorTotal;
@@ -551,7 +551,6 @@ percorrerEstruturaHTML(colocarEventosProdutos);
 
 percorrerTamanhosModal(colocarEventoTamanhos);
 
-verificarVersao()
+verificarVersao();
 
-window.addEventListener("resize", verificarVersao)
-
+window.addEventListener("resize", verificarVersao);
