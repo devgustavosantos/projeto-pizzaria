@@ -129,9 +129,12 @@ p {
 }
 
 .topo-container {
-    /* background-color: red; */
     cursor: pointer;
     height: 225px;
+}
+
+.topo-container:hover div.icone-adicionar {
+    background-color: #244C88;
 }
 
 /* Container para centrarlizar as fotos e tirar a rebarba */
@@ -163,15 +166,10 @@ p {
     width: 50px;
     height: 50px;
     margin: auto;
-    transition: all 0.2s linear ;
     position: relative;
     top: -25px;
+    transition: all 0.4s ease ;
 }
-
-.icone-adicionar-novo{
-    background-color: #244C88;
-    transition: all 0.2s linear;
-} 
 
 .base-container {
     padding: 10px 0;

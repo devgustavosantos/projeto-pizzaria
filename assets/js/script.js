@@ -93,20 +93,6 @@ function colocarEstilo(item) {
 function colocarEventosProdutos(item) {
     let areaDasPizzas = document.getElementById("area-das-pizzas");
     areaDasPizzas.children[item].children[0].addEventListener("click", mostrarModal);
-
-    areaDasPizzas.children[item].children[0].addEventListener("mouseover", destacarIconeAdicionar);
-
-    areaDasPizzas.children[item].children[0].addEventListener("mouseout", suavizarIconeAdicionar);
-}
-
-function destacarIconeAdicionar(evento) {
-    //Acessando a div do icone e colocando o estilo
-    evento.currentTarget.children[1].classList.add("icone-adicionar-novo");
-}
-
-function suavizarIconeAdicionar(evento) {
-    //Acessando a div do icone e retirando estilo
-    evento.currentTarget.children[1].classList.remove("icone-adicionar-novo");
 }
 
 //------------------------------------- Area do modal -------------------------------------------
@@ -569,6 +555,3 @@ verificarVersao()
 
 window.addEventListener("resize", verificarVersao)
 
-
-
-// Bug encontrado: se a pizza for adicionada, removida e depois adicionada novamente, o carrinho abre
