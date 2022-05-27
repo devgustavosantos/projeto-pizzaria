@@ -2,11 +2,11 @@
 
 Esse projeto é um site com o catálogo de uma pizzaria.
 <h1 align="center" style="max-width: 412px; margin: auto;">
-    <img src=".assets/image/recording/mobile-version.gif" alt="gif da versão mobile">
+    <img src="assets/image/recording/mobile-version.gif" alt="gif da versão mobile">
 </h1>
 
 <h1 align="center">
-    <img src=".assets/image/recording/desktop-version.gif" alt="gif da versão desktop">
+    <img src="assets/image/recording/desktop-version.gif" alt="gif da versão desktop">
 </h1>
 
 
