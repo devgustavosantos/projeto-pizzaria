@@ -1,6 +1,18 @@
 # Projeto Pizzaria
 
 Esse projeto é um site com o catálogo de uma pizzaria.
+
+## Sumário
+- [Pré-Visualização](#pré-visualização)
+- [Aviso](#aviso)
+- [Sobre](#sobre)
+- [Tecnologias](#tecnologias)
+- [Funcionalidades](#funcionalidades)
+- [Autor](#autor)
+
+</br>
+
+## Pré-Visualização
 <h1 align="center" style="max-width: 412px; margin: auto;">
     <img src="assets/image/recording/mobile-version.gif" alt="gif da versão mobile">
 </h1>
@@ -9,20 +21,9 @@ Esse projeto é um site com o catálogo de uma pizzaria.
     <img src="assets/image/recording/desktop-version.gif" alt="gif da versão desktop">
 </h1>
 
-
 </br>
 
-## Sumário
-
-- [Aviso](#Aviso)
-- [Sobre](#Sobre)
-- [Tecnologias](#Tecnologias)
-- [Funcionalidades](#Funcionalidades)
-- [Autor](#Autor)
-
-</br>
-
-## Avisos
+## Aviso
 
 - A primeira versão do projeto está finalizada, e melhorias no código serão feitas futuramente.
 
