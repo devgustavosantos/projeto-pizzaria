@@ -29,7 +29,7 @@ Esse projeto é um site com o catálogo de uma pizzaria.
 
 - Todas as fotos utilizadas pertecem a seus respectivos autores.
 
-- Para quiser testar o projeto basta [CLICAR AQUI!](https://devgustavosantos.github.io/projeto-pizzaria/)
+- Para testar o projeto basta [CLICAR AQUI!](https://devgustavosantos.github.io/projeto-pizzaria/)
 
 </br>
 
